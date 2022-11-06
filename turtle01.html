@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+   
+<body>
+    <script>
+        const canvas = document.createElement('canvas');
+        document.body.appendChild(canvas);
+        canvas.width = canvas.height = 400;
+        canvas.style.border = "solid 2px";
+        const ctx = canvas.getContext('2d'); 
+        let x = y = a = 0;
+
+        function fd(step) {
+            ctx.beginPath(); 
+            ctx.moveTo(200+x, 200-y);
+            x += step * Math.sin(a * Math.PI / 180.0);
+            y += step * Math.cos(a * Math.PI / 180.0);
+            ctx.lineTo(200 + x, 200 - y);
+            ctx.stroke();
+        }
+
+        function rt(angle) {
+            a += angle;
+        }
+
+       function triangle(size) {
+            for (let i = 0; i < 3; i++) {
+                fd(size); rt(120);
+            }
+        }
+
+       function square(size){
+        for(let i=0; i<4; i++){
+            fd(size); rt(90);
+        }
+       }
+       function house(size){
+        rt(30); triangle(size); rt(-30);
+        rt(90); square(size); rt(-90);
+       }
+       function move(n){
+        x = x + n;
+       }
+      move(-180);
+      for(let n=10; n<=70; n+=10){
+        house(n);
+        move(n+5);
+      }
+    </script>
+</body>
+</html>
